@@ -22,6 +22,7 @@ namespace WPF_POS
         public LoginWindow()
         {
             InitializeComponent();
+            
         }
         
         private void Submit_Click(object sender, RoutedEventArgs e)
@@ -43,9 +44,16 @@ namespace WPF_POS
             }
 
             if (foundUsername != "" && foundPassword != "")
+            {
                 MessageBox.Show("Witamy w systemie :)");
+                MainWindow main = new MainWindow();
+                this.Close();
+                main.Show();
+            }
             else
+            {
                 MessageBox.Show("Błędne dane logowania!");
+            }
         }
     }
 }

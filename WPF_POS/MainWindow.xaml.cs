@@ -24,5 +24,10 @@ namespace WPF_POS
         {
             InitializeComponent();
         }
+
+        private void Table_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
