@@ -1,0 +1,387 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="WPF_LicModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Obejmuje">
+          <Key>
+            <PropertyRef Name="id_zamowienia" />
+            <PropertyRef Name="id_potrawy" />
+          </Key>
+          <Property Name="id_zamowienia" Type="numeric" Precision="10" Scale="0" Nullable="false" />
+          <Property Name="id_potrawy" Type="numeric" Precision="5" Scale="0" Nullable="false" />
+          <Property Name="ilosc_sztuk" Type="numeric" Precision="3" Scale="0" />
+        </EntityType>
+        <EntityType Name="Potrawa">
+          <Key>
+            <PropertyRef Name="id_potrawy" />
+          </Key>
+          <Property Name="id_potrawy" Type="numeric" Precision="5" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nazwa_potrawy" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="gramatura_potrawy" Type="numeric" Precision="5" Scale="0" />
+          <Property Name="cena_potrawy" Type="money" />
+        </EntityType>
+        <EntityType Name="Skladnik">
+          <Key>
+            <PropertyRef Name="id_skladnika" />
+          </Key>
+          <Property Name="id_skladnika" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="nazwa_skladnika" Type="varchar" MaxLength="20" />
+          <Property Name="cena_za_kg" Type="money" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="Uzytkownik">
+          <Key>
+            <PropertyRef Name="id_uzytkownika" />
+          </Key>
+          <Property Name="id_uzytkownika" Type="numeric" Precision="3" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nazwa_uzytkownika" Type="varchar" MaxLength="20" />
+          <Property Name="haslo" Type="varchar" MaxLength="5" />
+          <Property Name="typ_uzytkownika" Type="varchar" MaxLength="15" />
+        </EntityType>
+        <EntityType Name="Zamowienie">
+          <Key>
+            <PropertyRef Name="id_zamowienia" />
+          </Key>
+          <Property Name="id_zamowienia" Type="numeric" Precision="10" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="data_zlozenia" Type="datetime" />
+          <Property Name="data_zrealizowania" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Zawiera">
+          <Key>
+            <PropertyRef Name="id_potrawy" />
+            <PropertyRef Name="id_skladnika" />
+          </Key>
+          <Property Name="id_potrawy" Type="numeric" Precision="5" Scale="0" Nullable="false" />
+          <Property Name="id_skladnika" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="ile_skladnika" Type="numeric" Precision="5" Scale="0" />
+        </EntityType>
+        <Association Name="FK__Obejmuje__id_pot__619B8048">
+          <End Role="Potrawa" Type="Self.Potrawa" Multiplicity="1" />
+          <End Role="Obejmuje" Type="Self.Obejmuje" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Potrawa">
+              <PropertyRef Name="id_potrawy" />
+            </Principal>
+            <Dependent Role="Obejmuje">
+              <PropertyRef Name="id_potrawy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Obejmuje__id_zam__60A75C0F">
+          <End Role="Zamowienie" Type="Self.Zamowienie" Multiplicity="1" />
+          <End Role="Obejmuje" Type="Self.Obejmuje" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Zamowienie">
+              <PropertyRef Name="id_zamowienia" />
+            </Principal>
+            <Dependent Role="Obejmuje">
+              <PropertyRef Name="id_zamowienia" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Zawiera__id_potr__5535A963">
+          <End Role="Potrawa" Type="Self.Potrawa" Multiplicity="1" />
+          <End Role="Zawiera" Type="Self.Zawiera" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Potrawa">
+              <PropertyRef Name="id_potrawy" />
+            </Principal>
+            <Dependent Role="Zawiera">
+              <PropertyRef Name="id_potrawy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Zawiera__id_skla__5629CD9C">
+          <End Role="Skladnik" Type="Self.Skladnik" Multiplicity="1" />
+          <End Role="Zawiera" Type="Self.Zawiera" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Skladnik">
+              <PropertyRef Name="id_skladnika" />
+            </Principal>
+            <Dependent Role="Zawiera">
+              <PropertyRef Name="id_skladnika" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="WPF_LicModelStoreContainer">
+          <EntitySet Name="Obejmuje" EntityType="Self.Obejmuje" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Potrawa" EntityType="Self.Potrawa" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Skladnik" EntityType="Self.Skladnik" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Uzytkownik" EntityType="Self.Uzytkownik" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Zamowienie" EntityType="Self.Zamowienie" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Zawiera" EntityType="Self.Zawiera" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Obejmuje__id_pot__619B8048" Association="Self.FK__Obejmuje__id_pot__619B8048">
+            <End Role="Potrawa" EntitySet="Potrawa" />
+            <End Role="Obejmuje" EntitySet="Obejmuje" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Obejmuje__id_zam__60A75C0F" Association="Self.FK__Obejmuje__id_zam__60A75C0F">
+            <End Role="Zamowienie" EntitySet="Zamowienie" />
+            <End Role="Obejmuje" EntitySet="Obejmuje" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Zawiera__id_potr__5535A963" Association="Self.FK__Zawiera__id_potr__5535A963">
+            <End Role="Potrawa" EntitySet="Potrawa" />
+            <End Role="Zawiera" EntitySet="Zawiera" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Zawiera__id_skla__5629CD9C" Association="Self.FK__Zawiera__id_skla__5629CD9C">
+            <End Role="Skladnik" EntitySet="Skladnik" />
+            <End Role="Zawiera" EntitySet="Zawiera" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="WPF_LicModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Obejmuje">
+          <Key>
+            <PropertyRef Name="id_zamowienia" />
+            <PropertyRef Name="id_potrawy" />
+          </Key>
+          <Property Name="id_zamowienia" Type="Decimal" Precision="10" Scale="0" Nullable="false" />
+          <Property Name="id_potrawy" Type="Decimal" Precision="5" Scale="0" Nullable="false" />
+          <Property Name="ilosc_sztuk" Type="Decimal" Precision="3" Scale="0" />
+          <NavigationProperty Name="Potrawa" Relationship="Self.FK__Obejmuje__id_pot__619B8048" FromRole="Obejmuje" ToRole="Potrawa" />
+          <NavigationProperty Name="Zamowienie" Relationship="Self.FK__Obejmuje__id_zam__60A75C0F" FromRole="Obejmuje" ToRole="Zamowienie" />
+        </EntityType>
+        <EntityType Name="Potrawa">
+          <Key>
+            <PropertyRef Name="id_potrawy" />
+          </Key>
+          <Property Name="id_potrawy" Type="Decimal" Precision="5" Scale="0" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nazwa_potrawy" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="gramatura_potrawy" Type="Decimal" Precision="5" Scale="0" />
+          <Property Name="cena_potrawy" Type="Decimal" Precision="19" Scale="4" />
+          <NavigationProperty Name="Obejmuje" Relationship="Self.FK__Obejmuje__id_pot__619B8048" FromRole="Potrawa" ToRole="Obejmuje" />
+          <NavigationProperty Name="Zawiera" Relationship="Self.FK__Zawiera__id_potr__5535A963" FromRole="Potrawa" ToRole="Zawiera" />
+        </EntityType>
+        <EntityType Name="Skladnik">
+          <Key>
+            <PropertyRef Name="id_skladnika" />
+          </Key>
+          <Property Name="id_skladnika" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="nazwa_skladnika" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="cena_za_kg" Type="Decimal" Precision="19" Scale="4" />
+          <NavigationProperty Name="Zawiera" Relationship="Self.FK__Zawiera__id_skla__5629CD9C" FromRole="Skladnik" ToRole="Zawiera" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="Uzytkownik">
+          <Key>
+            <PropertyRef Name="id_uzytkownika" />
+          </Key>
+          <Property Name="id_uzytkownika" Type="Decimal" Precision="3" Scale="0" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nazwa_uzytkownika" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="haslo" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="typ_uzytkownika" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Zamowienie">
+          <Key>
+            <PropertyRef Name="id_zamowienia" />
+          </Key>
+          <Property Name="id_zamowienia" Type="Decimal" Precision="10" Scale="0" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="data_zlozenia" Type="DateTime" Precision="3" />
+          <Property Name="data_zrealizowania" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Obejmuje" Relationship="Self.FK__Obejmuje__id_zam__60A75C0F" FromRole="Zamowienie" ToRole="Obejmuje" />
+        </EntityType>
+        <EntityType Name="Zawiera">
+          <Key>
+            <PropertyRef Name="id_potrawy" />
+            <PropertyRef Name="id_skladnika" />
+          </Key>
+          <Property Name="id_potrawy" Type="Decimal" Precision="5" Scale="0" Nullable="false" />
+          <Property Name="id_skladnika" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ile_skladnika" Type="Decimal" Precision="5" Scale="0" />
+          <NavigationProperty Name="Potrawa" Relationship="Self.FK__Zawiera__id_potr__5535A963" FromRole="Zawiera" ToRole="Potrawa" />
+          <NavigationProperty Name="Skladnik" Relationship="Self.FK__Zawiera__id_skla__5629CD9C" FromRole="Zawiera" ToRole="Skladnik" />
+        </EntityType>
+        <Association Name="FK__Obejmuje__id_pot__619B8048">
+          <End Role="Potrawa" Type="Self.Potrawa" Multiplicity="1" />
+          <End Role="Obejmuje" Type="Self.Obejmuje" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Potrawa">
+              <PropertyRef Name="id_potrawy" />
+            </Principal>
+            <Dependent Role="Obejmuje">
+              <PropertyRef Name="id_potrawy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Obejmuje__id_zam__60A75C0F">
+          <End Role="Zamowienie" Type="Self.Zamowienie" Multiplicity="1" />
+          <End Role="Obejmuje" Type="Self.Obejmuje" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Zamowienie">
+              <PropertyRef Name="id_zamowienia" />
+            </Principal>
+            <Dependent Role="Obejmuje">
+              <PropertyRef Name="id_zamowienia" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Zawiera__id_potr__5535A963">
+          <End Role="Potrawa" Type="Self.Potrawa" Multiplicity="1" />
+          <End Role="Zawiera" Type="Self.Zawiera" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Potrawa">
+              <PropertyRef Name="id_potrawy" />
+            </Principal>
+            <Dependent Role="Zawiera">
+              <PropertyRef Name="id_potrawy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Zawiera__id_skla__5629CD9C">
+          <End Role="Skladnik" Type="Self.Skladnik" Multiplicity="1" />
+          <End Role="Zawiera" Type="Self.Zawiera" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Skladnik">
+              <PropertyRef Name="id_skladnika" />
+            </Principal>
+            <Dependent Role="Zawiera">
+              <PropertyRef Name="id_skladnika" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="WPF_LicEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Obejmuje" EntityType="Self.Obejmuje" />
+          <EntitySet Name="Potrawa" EntityType="Self.Potrawa" />
+          <EntitySet Name="Skladnik" EntityType="Self.Skladnik" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <EntitySet Name="Uzytkownik" EntityType="Self.Uzytkownik" />
+          <EntitySet Name="Zamowienie" EntityType="Self.Zamowienie" />
+          <EntitySet Name="Zawiera" EntityType="Self.Zawiera" />
+          <AssociationSet Name="FK__Obejmuje__id_pot__619B8048" Association="Self.FK__Obejmuje__id_pot__619B8048">
+            <End Role="Potrawa" EntitySet="Potrawa" />
+            <End Role="Obejmuje" EntitySet="Obejmuje" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Obejmuje__id_zam__60A75C0F" Association="Self.FK__Obejmuje__id_zam__60A75C0F">
+            <End Role="Zamowienie" EntitySet="Zamowienie" />
+            <End Role="Obejmuje" EntitySet="Obejmuje" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Zawiera__id_potr__5535A963" Association="Self.FK__Zawiera__id_potr__5535A963">
+            <End Role="Potrawa" EntitySet="Potrawa" />
+            <End Role="Zawiera" EntitySet="Zawiera" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Zawiera__id_skla__5629CD9C" Association="Self.FK__Zawiera__id_skla__5629CD9C">
+            <End Role="Skladnik" EntitySet="Skladnik" />
+            <End Role="Zawiera" EntitySet="Zawiera" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="WPF_LicModelStoreContainer" CdmEntityContainer="WPF_LicEntities">
+          <EntitySetMapping Name="Obejmuje">
+            <EntityTypeMapping TypeName="WPF_LicModel.Obejmuje">
+              <MappingFragment StoreEntitySet="Obejmuje">
+                <ScalarProperty Name="id_zamowienia" ColumnName="id_zamowienia" />
+                <ScalarProperty Name="id_potrawy" ColumnName="id_potrawy" />
+                <ScalarProperty Name="ilosc_sztuk" ColumnName="ilosc_sztuk" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Potrawa">
+            <EntityTypeMapping TypeName="WPF_LicModel.Potrawa">
+              <MappingFragment StoreEntitySet="Potrawa">
+                <ScalarProperty Name="id_potrawy" ColumnName="id_potrawy" />
+                <ScalarProperty Name="nazwa_potrawy" ColumnName="nazwa_potrawy" />
+                <ScalarProperty Name="gramatura_potrawy" ColumnName="gramatura_potrawy" />
+                <ScalarProperty Name="cena_potrawy" ColumnName="cena_potrawy" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Skladnik">
+            <EntityTypeMapping TypeName="WPF_LicModel.Skladnik">
+              <MappingFragment StoreEntitySet="Skladnik">
+                <ScalarProperty Name="id_skladnika" ColumnName="id_skladnika" />
+                <ScalarProperty Name="nazwa_skladnika" ColumnName="nazwa_skladnika" />
+                <ScalarProperty Name="cena_za_kg" ColumnName="cena_za_kg" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="WPF_LicModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Uzytkownik">
+            <EntityTypeMapping TypeName="WPF_LicModel.Uzytkownik">
+              <MappingFragment StoreEntitySet="Uzytkownik">
+                <ScalarProperty Name="id_uzytkownika" ColumnName="id_uzytkownika" />
+                <ScalarProperty Name="nazwa_uzytkownika" ColumnName="nazwa_uzytkownika" />
+                <ScalarProperty Name="haslo" ColumnName="haslo" />
+                <ScalarProperty Name="typ_uzytkownika" ColumnName="typ_uzytkownika" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Zamowienie">
+            <EntityTypeMapping TypeName="WPF_LicModel.Zamowienie">
+              <MappingFragment StoreEntitySet="Zamowienie">
+                <ScalarProperty Name="id_zamowienia" ColumnName="id_zamowienia" />
+                <ScalarProperty Name="data_zlozenia" ColumnName="data_zlozenia" />
+                <ScalarProperty Name="data_zrealizowania" ColumnName="data_zrealizowania" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Zawiera">
+            <EntityTypeMapping TypeName="WPF_LicModel.Zawiera">
+              <MappingFragment StoreEntitySet="Zawiera">
+                <ScalarProperty Name="id_potrawy" ColumnName="id_potrawy" />
+                <ScalarProperty Name="id_skladnika" ColumnName="id_skladnika" />
+                <ScalarProperty Name="ile_skladnika" ColumnName="ile_skladnika" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

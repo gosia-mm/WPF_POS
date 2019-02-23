@@ -23,5 +23,29 @@ namespace WPF_POS
         {
             InitializeComponent();
         }
+        
+        private void Submit_Click(object sender, RoutedEventArgs e)
+        {
+            textBoxPassword.PasswordChar = '*';
+            WPF_LicEntities db = new WPF_LicEntities();
+
+            var users = db.Uzytkownik;
+            string foundUsername = "";
+            string foundPassword = "";
+
+            foreach (var user in users)
+            {
+                if (textBoxUsername.Text == user.nazwa_uzytkownika && textBoxPassword.Password == user.haslo)
+                {
+                    foundUsername = textBoxUsername.Text;
+                    foundPassword = textBoxPassword.Password;
+                }
+            }
+
+            if (foundUsername != "" && foundPassword != "")
+                MessageBox.Show("Witamy w systemie :)");
+            else
+                MessageBox.Show("Błędne dane logowania!");
+        }
     }
 }
