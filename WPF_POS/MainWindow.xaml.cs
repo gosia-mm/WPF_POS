@@ -20,6 +20,7 @@ namespace WPF_POS
     /// </summary>
     public partial class MainWindow : Window
     {
+        WPF_LicEntities db = new WPF_LicEntities();
         public MainWindow()
         {
             InitializeComponent();
@@ -28,15 +29,15 @@ namespace WPF_POS
 
         public void fillOrderListBox()
         {
-            WPF_LicEntities db = new WPF_LicEntities();
+            
             var orders = db.Zamowienie;
 
             foreach (var order in orders)
             {
                 if (order.data_zrealizowania == null)
-                    OrderListBox.Items.Add("ID: " + order.id_zamowienia + " | Utworzono: " + order.data_zlozenia);
+                    OrderListBox.Items.Add(order.id_zamowienia);
                 else
-                    CompletedOrderListBox.Items.Add("ID: " + order.id_zamowienia + " | Zrealizowano: " + order.data_zrealizowania);
+                    CompletedOrderListBox.Items.Add(order.id_zamowienia);
             }
         }
 
@@ -47,8 +48,31 @@ namespace WPF_POS
 
         private void OrderListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            Details.Visibility = Visibility.Visible;
+            DetailsLabel.Visibility = Visibility.Visible;
+            DetailsStackPanel.Visibility = Visibility.Visible;
 
+            decimal selectedOrderID = (decimal)OrderListBox.SelectedValue;
+            var orders = db.Zamowienie;
+            var order = orders.Where(en => en.id_zamowienia == selectedOrderID);
+            var found = order.First<Zamowienie>();
+            IDTextBox.Text = found.id_zamowienia.ToString();
+            CreatedTextBox.Text = found.data_zlozenia.ToString();
+            StatusTextBox.Text = "W toku";
+        }
+
+        private void CompletedOrderListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            DetailsLabel.Visibility = Visibility.Visible;
+            DetailsStackPanel.Visibility = Visibility.Visible;
+
+            decimal selectedOrderID = (decimal)CompletedOrderListBox.SelectedValue;
+            var orders = db.Zamowienie;
+            var order = orders.Where(en => en.id_zamowienia == selectedOrderID);
+            var found = order.First<Zamowienie>();
+            IDTextBox.Text = found.id_zamowienia.ToString();
+            CreatedTextBox.Text = found.data_zlozenia.ToString();
+            StatusTextBox.Text = "Zrealizowane";
+            DoneTextBox.Text = found.data_zrealizowania.ToString();
         }
     }
 }

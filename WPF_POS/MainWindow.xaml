@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WPF_POS"
         mc:Ignorable="d"
-        Title="MainWindow" Height="650" Width="600">
+        Title="MainWindow" Height="650" Width="600"  Background="Purple">
     <Border Padding="10">
         <TabControl>
             <TabItem Header="Stoliki">
@@ -120,12 +120,21 @@
                                 <RowDefinition Height="*" />
                             </Grid.RowDefinitions>
                             <Label Grid.Column="0" Grid.Row="0">Bieżące zamówienia:</Label>
-                            <ListBox x:Name="OrderListBox" SelectionChanged="OrderListBox_SelectionChanged" Height="100" Grid.Column="0" Grid.Row="1"></ListBox>
+                            <ListBox x:Name="OrderListBox" SelectionChanged="OrderListBox_SelectionChanged" Height="200" Grid.Column="0" Grid.Row="1"></ListBox>
                             <Label HorizontalAlignment="Left" Width="287" Grid.Column="0" Grid.Row="2">Zrealizowane zamówienia:</Label>
-                            <ListBox x:Name="CompletedOrderListBox" SelectionChanged="OrderListBox_SelectionChanged" Height="100" Background="GreenYellow" Grid.Column="0" Grid.Row="3"></ListBox>
+                            <ListBox x:Name="CompletedOrderListBox" SelectionChanged="CompletedOrderListBox_SelectionChanged" Height="200" Background="GreenYellow" Grid.Column="0" Grid.Row="3"></ListBox>
 
-                            <Label x:Name="Details" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center" Visibility="Hidden">Szczegóły zamówienia</Label>
-                        
+                            <Label x:Name="DetailsLabel" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center" Visibility="Hidden">Szczegóły zamówienia</Label>
+                            <StackPanel x:Name="DetailsStackPanel" Grid.Column="1" Grid.Row="1" Visibility="Hidden">
+                                <Label>ID:</Label>
+                                <TextBlock x:Name="IDTextBox"></TextBlock>
+                                <Label>Utworzono:</Label>
+                                <TextBlock x:Name="CreatedTextBox"></TextBlock>
+                                <Label>Status:</Label>
+                                <TextBlock x:Name="StatusTextBox"></TextBlock>
+                                <Label>Zrealizowano:</Label>
+                                <TextBlock x:Name="DoneTextBox"></TextBlock>
+                            </StackPanel>
                         </Grid>
                     </Border>
                 </StackPanel>
