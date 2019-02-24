@@ -106,6 +106,29 @@
                 </StackPanel>
             </TabItem>
             <TabItem Header="Zamówienia">
+                <StackPanel>
+                    <Border BorderThickness="10">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="2*"></ColumnDefinition>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="*" />
+                            </Grid.RowDefinitions>
+                            <Label Grid.Column="0" Grid.Row="0">Bieżące zamówienia:</Label>
+                            <ListBox x:Name="OrderListBox" SelectionChanged="OrderListBox_SelectionChanged" Height="100" Grid.Column="0" Grid.Row="1"></ListBox>
+                            <Label HorizontalAlignment="Left" Width="287" Grid.Column="0" Grid.Row="2">Zrealizowane zamówienia:</Label>
+                            <ListBox x:Name="CompletedOrderListBox" SelectionChanged="OrderListBox_SelectionChanged" Height="100" Background="GreenYellow" Grid.Column="0" Grid.Row="3"></ListBox>
+
+                            <Label x:Name="Details" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center" Visibility="Hidden">Szczegóły zamówienia</Label>
+                        
+                        </Grid>
+                    </Border>
+                </StackPanel>
             </TabItem>
         </TabControl>
     </Border>

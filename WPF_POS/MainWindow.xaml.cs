@@ -23,10 +23,31 @@ namespace WPF_POS
         public MainWindow()
         {
             InitializeComponent();
+            fillOrderListBox();
+        }
+
+        public void fillOrderListBox()
+        {
+            WPF_LicEntities db = new WPF_LicEntities();
+            var orders = db.Zamowienie;
+
+            foreach (var order in orders)
+            {
+                if (order.data_zrealizowania == null)
+                    OrderListBox.Items.Add("ID: " + order.id_zamowienia + " | Utworzono: " + order.data_zlozenia);
+                else
+                    CompletedOrderListBox.Items.Add("ID: " + order.id_zamowienia + " | Zrealizowano: " + order.data_zrealizowania);
+            }
         }
 
         private void Table_Click(object sender, RoutedEventArgs e)
         {
+
+        }
+
+        private void OrderListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            Details.Visibility = Visibility.Visible;
 
         }
     }
