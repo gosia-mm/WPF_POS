@@ -43,7 +43,9 @@ namespace WPF_POS
 
         private void Table_Click(object sender, RoutedEventArgs e)
         {
-
+            TableWindow chosenTableWindow = new TableWindow();
+            chosenTableWindow.tableInfoLabel.Content = ((Button)sender).ToolTip;
+            chosenTableWindow.Show();
         }
 
         private void OrderListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)

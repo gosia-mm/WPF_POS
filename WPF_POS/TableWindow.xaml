@@ -7,6 +7,7 @@
         mc:Ignorable="d"
         Title="TableWindow" Height="450" Width="800">
     <Grid>
-      <TextBlock Name="dateText"/>
+        <Label x:Name="tableInfoLabel" Margin="0,0,480,316"></Label>
+        <TextBlock Name="dateText" Margin="408,0,0,360"/>
     </Grid>
 </Window>
