@@ -25,11 +25,18 @@ namespace WPF_POS
         {
             InitializeComponent();
             fillOrderListBox();
+            TablesPage tablesPage = new TablesPage();
+            pageLoading(tablesPage);
         }
+
+        public void pageLoading(Page pageToLoad)
+        {
+            tablesFrame.Content = pageToLoad;
+        }
+
 
         public void fillOrderListBox()
         {
-            
             var orders = db.Zamowienie;
 
             foreach (var order in orders)
@@ -39,13 +46,6 @@ namespace WPF_POS
                 else
                     CompletedOrderListBox.Items.Add(order.id_zamowienia);
             }
-        }
-
-        private void Table_Click(object sender, RoutedEventArgs e)
-        {
-            TableWindow chosenTableWindow = new TableWindow();
-            chosenTableWindow.tableInfoLabel.Content = ((Button)sender).ToolTip;
-            chosenTableWindow.Show();
         }
 
         private void OrderListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
