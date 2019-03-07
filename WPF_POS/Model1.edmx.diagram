@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="23cb85b4c0fa44d4bcb087cf91a7ea85" Name="Diagram1">
+        <EntityTypeShape EntityType="WPF_LicModel.Obejmuje" Width="1.5" PointX="3" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="WPF_LicModel.Potrawa" Width="1.5" PointX="0.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="WPF_LicModel.Skladnik" Width="1.5" PointX="0.75" PointY="7.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="WPF_LicModel.sysdiagrams" Width="1.5" PointX="5.75" PointY="2.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="WPF_LicModel.Uzytkownik" Width="1.5" PointX="2.75" PointY="7.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="WPF_LicModel.Zamowienie" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="WPF_LicModel.Zawiera" Width="1.5" PointX="3" PointY="0.875" IsExpanded="true" />
+        <AssociationConnector Association="WPF_LicModel.FK__Obejmuje__id_pot__1EA48E88" ManuallyRouted="false" />
+        <AssociationConnector Association="WPF_LicModel.FK__Obejmuje__id_zam__1DB06A4F" ManuallyRouted="false" />
+        <AssociationConnector Association="WPF_LicModel.FK__Zawiera__id_potr__5535A963" ManuallyRouted="false" />
+        <AssociationConnector Association="WPF_LicModel.FK__Zawiera__id_skla__5629CD9C" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

@@ -27,7 +27,10 @@ namespace WPF_POS
 
         private void Table_Click(object sender, RoutedEventArgs e)
         {
-            ChosenTablePage chosenTablePage = new ChosenTablePage();
+            var variable = ((Button)sender).Content;
+            var number = ((Label)variable).Content.ToString();
+
+            ChosenTablePage chosenTablePage = new ChosenTablePage(number);
             chosenTablePage.tableInfoLabel.Content = ((Button)sender).ToolTip;
 
             Frame chosenTableFrame = new Frame();

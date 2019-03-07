@@ -17,10 +17,12 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="*" />
                 <RowDefinition Height="*" />
+                <RowDefinition Height="6*" />
             </Grid.RowDefinitions>
             <Button x:Name="PreviousButton" Grid.Row="0" Grid.Column="0" Click="PreviousButton_Click">WSTECZ</Button>
             <Label x:Name="tableInfoLabel" Grid.Row="1" Grid.Column="0"/>
             <TextBlock Name="dateTextBlock" Grid.Row="1" Grid.Column="1"/>
+            <ListBox x:Name="OrdersFromTableListBox" Height="200" Grid.Column="0" Grid.Row="2"></ListBox>
         </Grid>
     </Border>
    

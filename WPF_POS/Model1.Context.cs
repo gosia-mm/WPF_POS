@@ -13,10 +13,10 @@ namespace WPF_POS
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class WPF_LicEntities : DbContext
+    public partial class WPF_LicEntities1 : DbContext
     {
-        public WPF_LicEntities()
-            : base("name=WPF_LicEntities")
+        public WPF_LicEntities1()
+            : base("name=WPF_LicEntities1")
         {
         }
     

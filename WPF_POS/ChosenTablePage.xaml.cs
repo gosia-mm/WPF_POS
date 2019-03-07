@@ -21,13 +21,28 @@ namespace WPF_POS
     /// </summary>
     public partial class ChosenTablePage : Page
     {
-        public ChosenTablePage()
+        WPF_LicEntities1 db = new WPF_LicEntities1();
+        public ChosenTablePage(string tableNumber)
         {
             InitializeComponent();
+   
             DispatcherTimer timer = new DispatcherTimer(new TimeSpan(0, 0, 1), DispatcherPriority.Normal, delegate
             {
                 this.dateTextBlock.Text = DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss");
             }, this.Dispatcher);
+
+            fillOrdersFromTableListBox(tableNumber);
+        }
+
+        public void fillOrdersFromTableListBox(string tableNumber)
+        {
+            var orders = db.Zamowienie;
+
+            foreach (var order in orders)
+            {
+                if (order.stolik == tableNumber)
+                    OrdersFromTableListBox.Items.Add(order.id_zamowienia);
+            }
         }
 
         private void PreviousButton_Click(object sender, RoutedEventArgs e)

@@ -20,7 +20,7 @@ namespace WPF_POS
     /// </summary>
     public partial class MainWindow : Window
     {
-        WPF_LicEntities db = new WPF_LicEntities();
+        WPF_LicEntities1 db = new WPF_LicEntities1();
         public MainWindow()
         {
             InitializeComponent();
@@ -59,7 +59,7 @@ namespace WPF_POS
             var found = order.First<Zamowienie>();
             IDTextBox.Text = found.id_zamowienia.ToString();
             CreatedTextBox.Text = found.data_zlozenia.ToString();
-            StatusTextBox.Text = "W toku";
+            StatusTextBox.Text = found.status_zamowienia.ToString();
         }
 
         private void CompletedOrderListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -73,7 +73,7 @@ namespace WPF_POS
             var found = order.First<Zamowienie>();
             IDTextBox.Text = found.id_zamowienia.ToString();
             CreatedTextBox.Text = found.data_zlozenia.ToString();
-            StatusTextBox.Text = "Zrealizowane";
+            StatusTextBox.Text = found.status_zamowienia.ToString();
             DoneTextBox.Text = found.data_zrealizowania.ToString();
         }
     }

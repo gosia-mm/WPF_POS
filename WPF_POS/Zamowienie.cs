@@ -21,8 +21,10 @@ namespace WPF_POS
         }
     
         public decimal id_zamowienia { get; set; }
-        public Nullable<System.DateTime> data_zlozenia { get; set; }
+        public System.DateTime data_zlozenia { get; set; }
         public Nullable<System.DateTime> data_zrealizowania { get; set; }
+        public string status_zamowienia { get; set; }
+        public string stolik { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Obejmuje> Obejmuje { get; set; }

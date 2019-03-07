@@ -28,7 +28,7 @@ namespace WPF_POS
         private void Submit_Click(object sender, RoutedEventArgs e)
         {
             textBoxPassword.PasswordChar = '*';
-            WPF_LicEntities db = new WPF_LicEntities();
+            WPF_LicEntities1 db = new WPF_LicEntities1();
 
             var users = db.Uzytkownik;
             string foundUsername = "";

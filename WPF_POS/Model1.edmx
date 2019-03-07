@@ -55,8 +55,10 @@
             <PropertyRef Name="id_zamowienia" />
           </Key>
           <Property Name="id_zamowienia" Type="numeric" Precision="10" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="data_zlozenia" Type="datetime" />
+          <Property Name="data_zlozenia" Type="datetime" Nullable="false" />
           <Property Name="data_zrealizowania" Type="datetime" />
+          <Property Name="status_zamowienia" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="stolik" Type="varchar" MaxLength="4" />
         </EntityType>
         <EntityType Name="Zawiera">
           <Key>
@@ -67,7 +69,7 @@
           <Property Name="id_skladnika" Type="varchar" MaxLength="15" Nullable="false" />
           <Property Name="ile_skladnika" Type="numeric" Precision="5" Scale="0" />
         </EntityType>
-        <Association Name="FK__Obejmuje__id_pot__619B8048">
+        <Association Name="FK__Obejmuje__id_pot__1EA48E88">
           <End Role="Potrawa" Type="Self.Potrawa" Multiplicity="1" />
           <End Role="Obejmuje" Type="Self.Obejmuje" Multiplicity="*" />
           <ReferentialConstraint>
@@ -79,7 +81,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Obejmuje__id_zam__60A75C0F">
+        <Association Name="FK__Obejmuje__id_zam__1DB06A4F">
           <End Role="Zamowienie" Type="Self.Zamowienie" Multiplicity="1" />
           <End Role="Obejmuje" Type="Self.Obejmuje" Multiplicity="*" />
           <ReferentialConstraint>
@@ -123,11 +125,11 @@
           <EntitySet Name="Uzytkownik" EntityType="Self.Uzytkownik" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Zamowienie" EntityType="Self.Zamowienie" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Zawiera" EntityType="Self.Zawiera" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK__Obejmuje__id_pot__619B8048" Association="Self.FK__Obejmuje__id_pot__619B8048">
+          <AssociationSet Name="FK__Obejmuje__id_pot__1EA48E88" Association="Self.FK__Obejmuje__id_pot__1EA48E88">
             <End Role="Potrawa" EntitySet="Potrawa" />
             <End Role="Obejmuje" EntitySet="Obejmuje" />
           </AssociationSet>
-          <AssociationSet Name="FK__Obejmuje__id_zam__60A75C0F" Association="Self.FK__Obejmuje__id_zam__60A75C0F">
+          <AssociationSet Name="FK__Obejmuje__id_zam__1DB06A4F" Association="Self.FK__Obejmuje__id_zam__1DB06A4F">
             <End Role="Zamowienie" EntitySet="Zamowienie" />
             <End Role="Obejmuje" EntitySet="Obejmuje" />
           </AssociationSet>
@@ -153,8 +155,8 @@
           <Property Name="id_zamowienia" Type="Decimal" Precision="10" Scale="0" Nullable="false" />
           <Property Name="id_potrawy" Type="Decimal" Precision="5" Scale="0" Nullable="false" />
           <Property Name="ilosc_sztuk" Type="Decimal" Precision="3" Scale="0" />
-          <NavigationProperty Name="Potrawa" Relationship="Self.FK__Obejmuje__id_pot__619B8048" FromRole="Obejmuje" ToRole="Potrawa" />
-          <NavigationProperty Name="Zamowienie" Relationship="Self.FK__Obejmuje__id_zam__60A75C0F" FromRole="Obejmuje" ToRole="Zamowienie" />
+          <NavigationProperty Name="Potrawa" Relationship="Self.FK__Obejmuje__id_pot__1EA48E88" FromRole="Obejmuje" ToRole="Potrawa" />
+          <NavigationProperty Name="Zamowienie" Relationship="Self.FK__Obejmuje__id_zam__1DB06A4F" FromRole="Obejmuje" ToRole="Zamowienie" />
         </EntityType>
         <EntityType Name="Potrawa">
           <Key>
@@ -164,7 +166,7 @@
           <Property Name="nazwa_potrawy" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="gramatura_potrawy" Type="Decimal" Precision="5" Scale="0" />
           <Property Name="cena_potrawy" Type="Decimal" Precision="19" Scale="4" />
-          <NavigationProperty Name="Obejmuje" Relationship="Self.FK__Obejmuje__id_pot__619B8048" FromRole="Potrawa" ToRole="Obejmuje" />
+          <NavigationProperty Name="Obejmuje" Relationship="Self.FK__Obejmuje__id_pot__1EA48E88" FromRole="Potrawa" ToRole="Obejmuje" />
           <NavigationProperty Name="Zawiera" Relationship="Self.FK__Zawiera__id_potr__5535A963" FromRole="Potrawa" ToRole="Zawiera" />
         </EntityType>
         <EntityType Name="Skladnik">
@@ -200,9 +202,11 @@
             <PropertyRef Name="id_zamowienia" />
           </Key>
           <Property Name="id_zamowienia" Type="Decimal" Precision="10" Scale="0" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="data_zlozenia" Type="DateTime" Precision="3" />
+          <Property Name="data_zlozenia" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="data_zrealizowania" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="Obejmuje" Relationship="Self.FK__Obejmuje__id_zam__60A75C0F" FromRole="Zamowienie" ToRole="Obejmuje" />
+          <Property Name="status_zamowienia" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="stolik" Type="String" MaxLength="4" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Obejmuje" Relationship="Self.FK__Obejmuje__id_zam__1DB06A4F" FromRole="Zamowienie" ToRole="Obejmuje" />
         </EntityType>
         <EntityType Name="Zawiera">
           <Key>
@@ -215,7 +219,7 @@
           <NavigationProperty Name="Potrawa" Relationship="Self.FK__Zawiera__id_potr__5535A963" FromRole="Zawiera" ToRole="Potrawa" />
           <NavigationProperty Name="Skladnik" Relationship="Self.FK__Zawiera__id_skla__5629CD9C" FromRole="Zawiera" ToRole="Skladnik" />
         </EntityType>
-        <Association Name="FK__Obejmuje__id_pot__619B8048">
+        <Association Name="FK__Obejmuje__id_pot__1EA48E88">
           <End Role="Potrawa" Type="Self.Potrawa" Multiplicity="1" />
           <End Role="Obejmuje" Type="Self.Obejmuje" Multiplicity="*" />
           <ReferentialConstraint>
@@ -227,7 +231,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Obejmuje__id_zam__60A75C0F">
+        <Association Name="FK__Obejmuje__id_zam__1DB06A4F">
           <End Role="Zamowienie" Type="Self.Zamowienie" Multiplicity="1" />
           <End Role="Obejmuje" Type="Self.Obejmuje" Multiplicity="*" />
           <ReferentialConstraint>
@@ -263,7 +267,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="WPF_LicEntities" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="WPF_LicEntities1" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Obejmuje" EntityType="Self.Obejmuje" />
           <EntitySet Name="Potrawa" EntityType="Self.Potrawa" />
           <EntitySet Name="Skladnik" EntityType="Self.Skladnik" />
@@ -271,11 +275,11 @@
           <EntitySet Name="Uzytkownik" EntityType="Self.Uzytkownik" />
           <EntitySet Name="Zamowienie" EntityType="Self.Zamowienie" />
           <EntitySet Name="Zawiera" EntityType="Self.Zawiera" />
-          <AssociationSet Name="FK__Obejmuje__id_pot__619B8048" Association="Self.FK__Obejmuje__id_pot__619B8048">
+          <AssociationSet Name="FK__Obejmuje__id_pot__1EA48E88" Association="Self.FK__Obejmuje__id_pot__1EA48E88">
             <End Role="Potrawa" EntitySet="Potrawa" />
             <End Role="Obejmuje" EntitySet="Obejmuje" />
           </AssociationSet>
-          <AssociationSet Name="FK__Obejmuje__id_zam__60A75C0F" Association="Self.FK__Obejmuje__id_zam__60A75C0F">
+          <AssociationSet Name="FK__Obejmuje__id_zam__1DB06A4F" Association="Self.FK__Obejmuje__id_zam__1DB06A4F">
             <End Role="Zamowienie" EntitySet="Zamowienie" />
             <End Role="Obejmuje" EntitySet="Obejmuje" />
           </AssociationSet>
@@ -293,7 +297,7 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="WPF_LicModelStoreContainer" CdmEntityContainer="WPF_LicEntities">
+        <EntityContainerMapping StorageEntityContainer="WPF_LicModelStoreContainer" CdmEntityContainer="WPF_LicEntities1">
           <EntitySetMapping Name="Obejmuje">
             <EntityTypeMapping TypeName="WPF_LicModel.Obejmuje">
               <MappingFragment StoreEntitySet="Obejmuje">
@@ -349,6 +353,8 @@
                 <ScalarProperty Name="id_zamowienia" ColumnName="id_zamowienia" />
                 <ScalarProperty Name="data_zlozenia" ColumnName="data_zlozenia" />
                 <ScalarProperty Name="data_zrealizowania" ColumnName="data_zrealizowania" />
+                <ScalarProperty Name="status_zamowienia" ColumnName="status_zamowienia" />
+                <ScalarProperty Name="stolik" ColumnName="stolik" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
